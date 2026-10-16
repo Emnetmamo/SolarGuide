@@ -1,0 +1,100 @@
+{
+  "name": "ChecklistItem",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "phase": {
+      "type": "string",
+      "enum": [
+        "pre",
+        "commissioning"
+      ],
+      "default": "pre"
+    },
+    "order": {
+      "type": "number"
+    },
+    "label": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pass",
+        "attention",
+        "unchecked"
+      ],
+      "default": "unchecked"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string",
+      "description": "Measured value for commissioning items"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "not_measured": {
+      "type": "boolean",
+      "default": false
+    },
+    "evidence_file_uri": {
+      "type": "string"
+    },
+    "recorded_by": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "label"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

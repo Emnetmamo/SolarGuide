@@ -1,0 +1,44 @@
+{
+  "name": "ConsentRecord",
+  "type": "object",
+  "properties": {
+    "granted": {
+      "type": "boolean",
+      "default": false
+    },
+    "version": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string",
+      "description": "What the consent covers, e.g. open_dataset"
+    },
+    "granted_at": {
+      "type": "string"
+    },
+    "withdrawn_at": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "granted",
+    "version"
+  ],
+  "rls": {
+    "read": {
+      "created_by_id": "{{user.id}}"
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "created_by_id": "{{user.id}}"
+    },
+    "delete": {
+      "created_by_id": "{{user.id}}"
+    }
+  }
+}

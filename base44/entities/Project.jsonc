@@ -1,0 +1,104 @@
+{
+  "name": "Project",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Project or household name"
+    },
+    "region": {
+      "type": "string",
+      "description": "City / region (coarse location only)"
+    },
+    "latitude": {
+      "type": "number"
+    },
+    "longitude": {
+      "type": "number"
+    },
+    "roof_type": {
+      "type": "string",
+      "enum": [
+        "metal_sheet",
+        "tile",
+        "concrete_flat",
+        "other"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "planning",
+        "installed",
+        "monitoring"
+      ],
+      "default": "planning"
+    },
+    "share_token": {
+      "type": "string",
+      "description": "Random token for the read-only handover report link"
+    },
+    "demo_flag": {
+      "type": "boolean",
+      "default": false
+    },
+    "monitoring_start": {
+      "type": "string",
+      "format": "date"
+    },
+    "baseline_kwh": {
+      "type": "number",
+      "description": "Baseline expected daily energy at handover (kWh/day)"
+    },
+    "client_label": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

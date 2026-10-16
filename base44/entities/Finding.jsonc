@@ -1,0 +1,99 @@
+{
+  "name": "Finding",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "dust",
+        "outage",
+        "install",
+        "shade",
+        "none"
+      ],
+      "default": "none"
+    },
+    "severity": {
+      "type": "string",
+      "enum": [
+        "info",
+        "watch",
+        "attention"
+      ],
+      "default": "info"
+    },
+    "title": {
+      "type": "string"
+    },
+    "observed_gap_pct": {
+      "type": "number"
+    },
+    "possible_causes": {
+      "type": "string"
+    },
+    "evidence_summary": {
+      "type": "string"
+    },
+    "recommended_action": {
+      "type": "string"
+    },
+    "confirm_hint": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "demo_flag": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "project_id",
+    "type"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

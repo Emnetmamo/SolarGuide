@@ -1,0 +1,140 @@
+{
+  "name": "Design",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "tilt": {
+      "type": "number"
+    },
+    "azimuth": {
+      "type": "number"
+    },
+    "shade_level": {
+      "type": "string",
+      "enum": [
+        "none",
+        "some",
+        "heavy"
+      ],
+      "default": "none"
+    },
+    "appliances": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "watts": {
+            "type": "number"
+          },
+          "qty": {
+            "type": "number"
+          },
+          "hours": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "estimated_daily_load_kwh": {
+      "type": "number"
+    },
+    "pv_kwp": {
+      "type": "number"
+    },
+    "performance_ratio": {
+      "type": "number",
+      "default": 0.75
+    },
+    "expected_daily_kwh": {
+      "type": "number"
+    },
+    "expected_daily_min": {
+      "type": "number"
+    },
+    "expected_daily_max": {
+      "type": "number"
+    },
+    "expected_monthly_min": {
+      "type": "number"
+    },
+    "expected_monthly_max": {
+      "type": "number"
+    },
+    "resource_source": {
+      "type": "string",
+      "description": "Where the solar resource numbers came from"
+    },
+    "resource_timestamp": {
+      "type": "string"
+    },
+    "resource_monthly": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "description": "Peak sun hours per month, Jan\u2013Dec"
+    },
+    "assumptions": {
+      "type": "string"
+    },
+    "correction_factor": {
+      "type": "number"
+    },
+    "correction_days": {
+      "type": "number"
+    },
+    "monitoring_start": {
+      "type": "string",
+      "format": "date"
+    }
+  },
+  "required": [
+    "project_id"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

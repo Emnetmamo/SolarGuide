@@ -1,0 +1,91 @@
+{
+  "name": "Reading",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "Day the energy was produced (YYYY-MM-DD)"
+    },
+    "energy_kwh": {
+      "type": "number",
+      "description": "Actual daily energy in kWh; a missing day simply has no record"
+    },
+    "irradiance": {
+      "type": "number",
+      "description": "Daily insolation, kWh/m\u00b2/day"
+    },
+    "temp": {
+      "type": "number",
+      "description": "Ambient temperature, \u00b0C"
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "manual",
+        "csv",
+        "demo"
+      ],
+      "default": "manual"
+    },
+    "shared": {
+      "type": "boolean",
+      "default": false
+    },
+    "consent_id": {
+      "type": "string"
+    },
+    "quality_flags": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "project_id",
+    "date",
+    "energy_kwh"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

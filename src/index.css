@@ -1,0 +1,164 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* SolarGuide palette — deep green, warm solar yellow, off-white. Channels only (oklch L C H). */
+    --background: 0.978 0.008 95;
+    --foreground: 0.22 0.03 160;
+    --card: 0.995 0.004 95;
+    --card-foreground: 0.22 0.03 160;
+    --popover: 0.995 0.004 95;
+    --popover-foreground: 0.22 0.03 160;
+    --primary: 0.4 0.08 160;
+    --primary-foreground: 0.98 0.01 95;
+    --secondary: 0.94 0.02 140;
+    --secondary-foreground: 0.3 0.06 160;
+    --muted: 0.945 0.012 95;
+    --muted-foreground: 0.47 0.03 160;
+    --accent: 0.93 0.06 92;
+    --accent-foreground: 0.3 0.06 160;
+    --sun: 0.84 0.15 88;
+    --sun-foreground: 0.25 0.04 70;
+    --leaf: 0.62 0.12 150;
+    --ok: 0.44 0.11 155;
+    --ok-soft: 0.94 0.05 155;
+    --warn: 0.5 0.13 70;
+    --warn-soft: 0.95 0.07 88;
+    --bad: 0.48 0.18 32;
+    --bad-soft: 0.95 0.04 32;
+    --destructive: 0.48 0.18 32;
+    --destructive-foreground: 0.98 0.01 95;
+    --border: 0.9 0.015 120;
+    --input: 0.88 0.015 120;
+    --ring: 0.4 0.08 160;
+    --chart-1: 0.4 0.08 160;
+    --chart-2: 0.8 0.15 85;
+    --chart-3: 0.62 0.12 150;
+    --chart-4: 0.48 0.18 32;
+    --chart-5: 0.6 0.05 230;
+    --sidebar-background: 0.97 0.01 95;
+    --sidebar-foreground: 0.22 0.03 160;
+    --sidebar-primary: 0.4 0.08 160;
+    --sidebar-primary-foreground: 0.98 0.01 95;
+    --sidebar-accent: 0.94 0.02 140;
+    --sidebar-accent-foreground: 0.3 0.06 160;
+    --sidebar-border: 0.9 0.015 120;
+    --sidebar-ring: 0.4 0.08 160;
+    --radius: 1rem;
+    --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+    --font-heading: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+    --font-body: "Figtree", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --shadow-soft: 0 1px 2px oklch(0.3 0.06 160 / 6%), 0 8px 24px -8px oklch(0.3 0.06 160 / 14%);
+    --shadow-lift: 0 2px 4px oklch(0.3 0.06 160 / 8%), 0 18px 40px -12px oklch(0.3 0.06 160 / 25%);
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  :focus-visible {
+    outline: 3px solid oklch(var(--sun));
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .card-soft {
+    background-color: oklch(var(--card));
+    border: 1px solid oklch(var(--border));
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-soft);
+  }
+  .bg-hero {
+    background:
+      radial-gradient(60% 80% at 85% 10%, oklch(0.84 0.15 88 / 45%), transparent 60%),
+      linear-gradient(160deg, oklch(0.34 0.07 160), oklch(0.42 0.085 158));
+  }
+  .bg-sun-glow {
+    background: radial-gradient(circle, oklch(0.9 0.15 90), oklch(0.84 0.15 88) 55%, oklch(0.84 0.15 88 / 0) 72%);
+  }
+  .bg-panel-cells {
+    background-color: oklch(0.3 0.06 250);
+    background-image: linear-gradient(oklch(0.75 0.02 250 / 50%) 1px, transparent 1px),
+      linear-gradient(90deg, oklch(0.75 0.02 250 / 50%) 1px, transparent 1px);
+    background-size: 25% 33.33%;
+  }
+  .bg-panel-shine {
+    background: linear-gradient(110deg, transparent 30%, oklch(1 0 0 / 45%) 48%, transparent 62%);
+  }
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  .shadow-lift {
+    box-shadow: var(--shadow-lift);
+  }
+  .animate-sweep {
+    animation: sweep 5s ease-in-out infinite;
+  }
+  .animate-float-sun {
+    animation: float-sun 7s ease-in-out infinite;
+  }
+  .animate-flow {
+    stroke-dasharray: 6 14;
+    animation: flow 1.6s linear infinite;
+  }
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  60%,
+  100% {
+    transform: translateX(160%);
+  }
+}
+@keyframes float-sun {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+@keyframes flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-sweep,
+  .animate-float-sun,
+  .animate-flow {
+    animation: none !important;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white;
+  }
+  .card-soft {
+    box-shadow: none;
+  }
+}

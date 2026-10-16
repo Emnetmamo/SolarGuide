@@ -1,0 +1,93 @@
+{
+  "name": "PhotoCheck",
+  "type": "object",
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "area": {
+      "type": "string",
+      "enum": [
+        "panel",
+        "inverter",
+        "shading",
+        "mounting"
+      ],
+      "default": "panel"
+    },
+    "file_uri": {
+      "type": "string",
+      "description": "Private storage URI of the photo"
+    },
+    "observation": {
+      "type": "string"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "low"
+    },
+    "limits": {
+      "type": "string"
+    },
+    "next_step": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "demo_flag": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "required": [
+    "area",
+    "file_uri"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "created_by_id": "{{user.id}}"
+    },
+    "update": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "created_by_id": "{{user.id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}
